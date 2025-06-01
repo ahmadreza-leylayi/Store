@@ -3,8 +3,7 @@
 import Link from "next/link"
 import { redirect, usePathname } from "next/navigation"
 import Cookie from "js-cookie"
-import ShoppingCardContextProvider, { useShoppingCardContext } from "@/context/ShoppingCardContext"
-import { useEffect } from "react"
+import  { useShoppingCardContext } from "@/context/ShoppingCardContext"
 
 function Navbar() {
   const pathname = usePathname()

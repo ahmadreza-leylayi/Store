@@ -33,15 +33,15 @@ export default function Card() {
     })
 
   },[])
-          let totalPrice = cardItems.reduce((total,item)=>{
-               let selectedProduct = data.find((product)=> product.id == item.id.toString());
+          const totalPrice = cardItems.reduce((total,item)=>{
+               const selectedProduct = data.find((product)=> product.id == item.id.toString());
             return total + (selectedProduct?.price||0)* item.qty },0)
 
   const handleSubmitDiscount = ()=>{
     axios(`http://localhost:3004/discount?code=${discountCode}`).then((result)=>{
       const data = result.data as IDiscountData[]
-      let discountedPrice = totalPrice * data[0].percentage / 100
-      let finalPrice = totalPrice - discountedPrice
+      const discountedPrice = totalPrice * data[0].percentage / 100
+      const finalPrice = totalPrice - discountedPrice
       setFinalPrice(finalPrice)
       setDiscountedPrice(discountedPrice)
     })

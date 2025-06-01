@@ -5,7 +5,7 @@ import Search from "@/components/Search";
 import Link from "next/link"
 
 interface IStoreProps {
-    params: Promise<{}>;
+    params: Promise<{ id: string }>;
     searchParams: Promise<{ page: string; per_page: string; title: string }>;
 }
 

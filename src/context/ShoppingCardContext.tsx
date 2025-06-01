@@ -48,7 +48,7 @@ export default function ShoppingCardContextProvider({children}:ShoppingCardConte
 
 const handleIncreaseProductQty=(id:number)=>{
     setCardItems(currentItem   =>{
-        let isNotProductExist = currentItem.find(item=> item.id == id) == null;
+        const isNotProductExist = currentItem.find(item=> item.id == id) == null;
         if(isNotProductExist){
             return [...currentItem,{id: id,qty: 1}]
         }
@@ -70,7 +70,7 @@ const handleIncreaseProductQty=(id:number)=>{
 
 const handleDecreaseProductQty = (id:number)=>{
     setCardItems(currentItem =>{
-     let  isLastOne = currentItem.find(item=>item.id == id)?.qty == 1 ;
+     const  isLastOne = currentItem.find(item=>item.id == id)?.qty == 1 ;
      if (isLastOne){
        return currentItem.filter(item=>item.id != id)
      }

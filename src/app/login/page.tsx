@@ -1,13 +1,10 @@
 'use client'
 import Container from '@/components/Container'
-import axios from 'axios'
-import React, { useState } from 'react'
+// import axios from 'axios'
 import Cookie from "js-cookie"
 import { redirect } from 'next/navigation'
 
 export default function Login() {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
 
     const handleSubmit = () => {
         // const data = axios({
@@ -34,13 +31,11 @@ export default function Login() {
                 <h1 className="text-4xl font-bold text-center text-gray-800 font-serif">Login</h1>
                 <div className="w-full max-w-sm space-y-4">
                     <input
-                        onChange={(e) => setUsername(e.target.value)}
                         type="text"
                         placeholder="Username"
                         className="w-full px-4 bg-orange-50 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <input
-                        onChange={(e) => setPassword(e.target.value)}
                         type="password"
                         placeholder="Password"
                         className="w-full px-4 bg-orange-50 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -12,7 +12,7 @@ const handleSearch=()=>{
 
     currentSearch.set("title",search.trim())
 
-    {search===""?router.push("/store"):router.push(`/store?${currentSearch.toString()}`)}}
+   router.push(`/store?${currentSearch.toString()}`)}
   return (
     <div className='flex gap-2 mb-4'> 
       <input onChange={(e)=>setSearch(e.target.value)} type="text" placeholder='Search by title' className='bg-orange-100 text-black px-4 py-2 rounded-md' />

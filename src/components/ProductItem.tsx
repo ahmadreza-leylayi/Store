@@ -20,7 +20,7 @@ data:ProductItemProps[]
 }
 
 
-export default function ProductItem({id, image, title, description, price}: ProductItemProps) {
+export default function ProductItem({ image, title, price}: ProductItemProps) {
   return (
  <div className="shadow-md cursor-pointer w-70">
       <img className="w-full h-70" src={image} alt="" />

@@ -4,11 +4,11 @@ import { ProductItemProps } from '@/components/ProductItem'
 import AddToCard from '@/components/AddToCard'
 
 interface ProductProps {
-    params: { id: string }
+    params: Promise<{  id: string }>
 }
 
 export default async function Product({ params }: ProductProps) {
-    const { id } = params
+    const { id } = await params
     const result = await fetch(`http://localhost:3004/product/${id}`)
     const data = await result.json() as ProductItemProps
 
