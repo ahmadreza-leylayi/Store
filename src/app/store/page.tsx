@@ -3,6 +3,7 @@ import Pagination from "@/components/Pagination";
 import ProductItem, { IProductList } from "@/components/ProductItem"
 import Search from "@/components/Search";
 import Link from "next/link"
+import { productDatabase } from "@/database/productDatabase";
 
 interface IStoreProps {
     params: Promise<{ id: string }>;
@@ -10,12 +11,20 @@ interface IStoreProps {
 }
 
 async function Store({ searchParams }: IStoreProps) {
-    const page = (await searchParams).page ?? "1";
-    const per_page = (await searchParams).per_page ?? "4";
+    const page = parseInt((await searchParams).page ?? "1");
+    const per_page = parseInt((await searchParams).per_page ?? "4");
     const title = (await searchParams).title ?? "";
 
-    const result = await fetch(`http://localhost:3004/product?_page=${page}&_per_page=${per_page}&title=${title}`)
-    const data = await result.json() as IProductList
+    // فیلتر و paginate روی داده‌های استاتیک
+    let filtered = productDatabase.product;
+    if (title) {
+        filtered = filtered.filter(p => p.title.toLowerCase().includes(title.toLowerCase()));
+    }
+    const total = filtered.length;
+    const pages = Math.ceil(total / per_page);
+    const start = (page - 1) * per_page;
+    const end = start + per_page;
+    const data = filtered.slice(start, end);
 
     return (
         <Container>
@@ -24,17 +33,17 @@ async function Store({ searchParams }: IStoreProps) {
                 <Search />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {data.data.map((item) => (
+                {data.map((item) => (
                     <Link className="mx-auto" href={`/store/${item.id}`} key={item.id}>
                         <ProductItem {...item} />
                     </Link>
                 ))}
             </div>
             <div className="mt-8 flex justify-center">
-                <Pagination pageCount={data.pages} />
+                <Pagination pageCount={pages} />
             </div>
         </Container>
     )
 }
 
-export default Store
+export default Store;

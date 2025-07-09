@@ -2,6 +2,7 @@ import Container from '@/components/Container'
 import React from 'react'
 import { ProductItemProps } from '@/components/ProductItem'
 import AddToCard from '@/components/AddToCard'
+import { productDatabase } from '@/database/productDatabase'
 
 interface ProductProps {
     params: Promise<{  id: string }>
@@ -9,8 +10,8 @@ interface ProductProps {
 
 export default async function Product({ params }: ProductProps) {
     const { id } = await params
-    const result = await fetch(`http://localhost:3004/product/${id}`)
-    const data = await result.json() as ProductItemProps
+    const data = productDatabase.product.find(p => p.id === id)
+    if (!data) return <Container><div>Product not found</div></Container>
 
     return (
         <Container>

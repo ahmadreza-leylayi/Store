@@ -3,16 +3,14 @@ import CardItem from "@/components/CardItem";
 import Container from "@/components/Container";
 import { ProductItemProps } from "@/components/ProductItem";
 import { useShoppingCardContext } from "@/context/ShoppingCardContext";
-import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { productDatabase } from "@/database/productDatabase";
 
 interface IDiscountData{
   id: number,
   code: string,
   percentage: number
 }
-
 
 export default function Card() {
   const {cardItems} = useShoppingCardContext()
@@ -23,28 +21,23 @@ export default function Card() {
   const [data,setData] = useState<ProductItemProps[]>([]) ;
 
   useEffect(()=>{
-    
-    axios(`http://localhost:3004/product`).then((result)=>{
-     
-      const {data} = result;
-      setData(data)
-      console.log(data);
-      
-    })
-
+    setData(productDatabase.product)
   },[])
           const totalPrice = cardItems.reduce((total,item)=>{
                const selectedProduct = data.find((product)=> product.id == item.id.toString());
             return total + (selectedProduct?.price||0)* item.qty },0)
 
   const handleSubmitDiscount = ()=>{
-    axios(`http://localhost:3004/discount?code=${discountCode}`).then((result)=>{
-      const data = result.data as IDiscountData[]
-      const discountedPrice = totalPrice * data[0].percentage / 100
+    const found = productDatabase.discount.find(d => d.code === discountCode)
+    if (found) {
+      const discountedPrice = totalPrice * found.percentage / 100
       const finalPrice = totalPrice - discountedPrice
       setFinalPrice(finalPrice)
       setDiscountedPrice(discountedPrice)
-    })
+    } else {
+      setFinalPrice(totalPrice)
+      setDiscountedPrice(0)
+    }
   }
 
 

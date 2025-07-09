@@ -1,4 +1,6 @@
+'use client'
 import { useEffect, useState } from "react";
+import { productDatabase } from "@/database/productDatabase";
 import AddToCard from "./AddToCard";
 import axios from "axios";
 import { ProductItemProps } from "./ProductItem";
@@ -12,16 +14,9 @@ export default function CardItem({id,qty}:ICardItemProps) {
   const [data,setData] = useState({} as ProductItemProps) ;
 
   useEffect(()=>{
-    
-    axios(`http://localhost:3004/product/${id}`).then((result)=>{
-     
-      const {data} = result;
-      setData(data)
-      console.log(data);
-      
-    })
-
-  },[])
+    const found = productDatabase.product.find(p => p.id == id.toString());
+    if (found) setData(found);
+  },[id])
 
   return (
 <div className="grid grid-cols-12 bg-gray-200 mt-4 items-center">
