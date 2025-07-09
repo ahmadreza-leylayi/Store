@@ -1,6 +1,6 @@
 import Container from "@/components/Container"
 import Pagination from "@/components/Pagination";
-import ProductItem, { IProductList } from "@/components/ProductItem"
+import ProductItem from "@/components/ProductItem"
 import Search from "@/components/Search";
 import Link from "next/link"
 import { productDatabase } from "@/database/productDatabase";

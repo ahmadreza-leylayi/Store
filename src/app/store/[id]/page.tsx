@@ -1,6 +1,5 @@
 import Container from '@/components/Container'
 import React from 'react'
-import { ProductItemProps } from '@/components/ProductItem'
 import AddToCard from '@/components/AddToCard'
 import { productDatabase } from '@/database/productDatabase'
 

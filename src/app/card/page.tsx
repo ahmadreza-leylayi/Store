@@ -6,12 +6,6 @@ import { useShoppingCardContext } from "@/context/ShoppingCardContext";
 import { useEffect, useState } from "react";
 import { productDatabase } from "@/database/productDatabase";
 
-interface IDiscountData{
-  id: number,
-  code: string,
-  percentage: number
-}
-
 export default function Card() {
   const {cardItems} = useShoppingCardContext()
   const [discountCode, setDiscountCode] = useState("")

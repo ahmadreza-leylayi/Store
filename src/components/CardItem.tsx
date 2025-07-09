@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { productDatabase } from "@/database/productDatabase";
 import AddToCard from "./AddToCard";
-import axios from "axios";
 import { ProductItemProps } from "./ProductItem";
 interface ICardItemProps{
   id: number;
